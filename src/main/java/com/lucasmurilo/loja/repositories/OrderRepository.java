@@ -1,0 +1,9 @@
+package com.lucasmurilo.loja.repositories;
+
+import com.lucasmurilo.loja.dominio.Order;
+import com.lucasmurilo.loja.dominio.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface OrderRepository extends JpaRepository<Order, Long> {
+
+}
