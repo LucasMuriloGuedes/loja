@@ -1,5 +1,7 @@
 package com.lucasmurilo.loja.dominio;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -22,10 +24,12 @@ public class Product implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> category = new HashSet<>();
 
+    @OneToMany(mappedBy = "id.product")
+    private Set<OrdermItem> items = new HashSet<>();
+
     public Product(){
 
     }
-
     public Product(Long id, String name, String description, Double price, String imgUrl) {
         this.id = id;
         this.name = name;
@@ -76,6 +80,15 @@ public class Product implements Serializable {
 
     public Set<Category> getCategory() {
         return category;
+    }
+
+    @JsonIgnore
+    public Set<Order> getOrders(){
+        Set<Order> set = new HashSet<>();
+        for(OrdermItem c: items){
+            set.add(c.getOrder());
+        }
+        return set;
     }
 
     @Override
