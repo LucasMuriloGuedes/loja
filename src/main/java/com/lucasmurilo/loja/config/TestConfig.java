@@ -1,14 +1,8 @@
 package com.lucasmurilo.loja.config;
 
-import com.lucasmurilo.loja.dominio.Category;
-import com.lucasmurilo.loja.dominio.Order;
-import com.lucasmurilo.loja.dominio.Product;
-import com.lucasmurilo.loja.dominio.User;
+import com.lucasmurilo.loja.dominio.*;
 import com.lucasmurilo.loja.dominio.enums.OrderStatus;
-import com.lucasmurilo.loja.repositories.CategoryRepository;
-import com.lucasmurilo.loja.repositories.OrderRepository;
-import com.lucasmurilo.loja.repositories.ProductRepository;
-import com.lucasmurilo.loja.repositories.UserRepository;
+import com.lucasmurilo.loja.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -31,7 +25,10 @@ public class TestConfig implements CommandLineRunner {
     private CategoryRepository categoryRepository;
 
     @Autowired
-    ProductRepository productRepository;
+    private ProductRepository productRepository;
+
+    @Autowired
+    private OrderItemRepository orderItemRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -67,6 +64,13 @@ public class TestConfig implements CommandLineRunner {
 
         userRepository.saveAll(Arrays.asList(u1,u2));
         orderRepository.saveAll(Arrays.asList(o1,o2,o3));
+
+        OrdermItem oi1 = new OrdermItem(o1, p1, 2, p1.getPrice());
+        OrdermItem oi2 = new OrdermItem(o1, p3, 1, p3.getPrice());
+        OrdermItem oi3 = new OrdermItem(o2, p3, 2, p3.getPrice());
+        OrdermItem oi4 = new OrdermItem(o3, p5, 2, p5.getPrice());
+
+        orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
 
     }
 }

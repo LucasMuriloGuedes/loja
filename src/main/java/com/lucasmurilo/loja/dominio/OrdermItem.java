@@ -1,5 +1,6 @@
 package com.lucasmurilo.loja.dominio;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.lucasmurilo.loja.dominio.pk.OrdemItemPk;
 
 import javax.persistence.Embeddable;
@@ -13,7 +14,7 @@ import java.io.Serializable;
 public class OrdermItem implements Serializable {
 
     @EmbeddedId
-    private OrdemItemPk id;
+    private OrdemItemPk id = new OrdemItemPk();
     private Integer quantity;
     private Double price;
 
@@ -27,6 +28,7 @@ public class OrdermItem implements Serializable {
         this.price = price;
     }
 
+    @JsonIgnore
     public Order getOrder(){
         return id.getOrder();
     }
